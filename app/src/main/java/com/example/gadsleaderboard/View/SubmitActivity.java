@@ -27,8 +27,8 @@ public class SubmitActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private Button submitBtn;
     private Dialog saveExitDialog;
-    private Dialog successDialog;
-    private Dialog failDialog;
+
+
 
     private ApiInterface apiInterface;
     private ImageView closeDialog;
@@ -61,8 +61,7 @@ public class SubmitActivity extends AppCompatActivity {
         });
 
         saveExitDialog = new Dialog(this);
-        failDialog = new Dialog(this);
-        successDialog = new Dialog(this);
+
 
 
     }
@@ -94,6 +93,9 @@ public class SubmitActivity extends AppCompatActivity {
 
                 }else{
                     submit(fname,lname,email,gitLink);
+                    saveExitDialog.dismiss();
+
+
                 }
 
 
@@ -118,32 +120,37 @@ public class SubmitActivity extends AppCompatActivity {
 
     private void submit(String name,String lastName,String email,String gitUrl) {
         apiInterface = ApiClient2.getApiClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiInterface.submitProject(
+
+
+        Call<Void>  call = apiInterface.submitProject(
+
                 name,
-                lastName,
-                email,
-                gitUrl
+               lastName,
+               email, gitUrl
+
         );
 
-
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                SuccessDialog successDialog = new SuccessDialog();
+                successDialog.show(getSupportFragmentManager(),"success dialog");
 
 
 
-                successDialog.setContentView(R.layout.positive_layout_send);
-                successDialog.show();
-                successDialog.onBackPressed();
+
 
 
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                failDialog.setContentView(R.layout.negative_popup_menu);
-                failDialog.show();
-                failDialog.onBackPressed();
+            public void onFailure(Call<Void> call, Throwable t) {
+
+                FailureDialog failureDialog = new FailureDialog();
+                failureDialog.show(getSupportFragmentManager(),"failure dialog");
+
+
 
             }
         });

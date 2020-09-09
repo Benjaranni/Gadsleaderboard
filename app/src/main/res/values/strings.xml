@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GADS LEADERBOARD</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="learning_leaders">Learning Leaders</string>
+    <string name="skill_iq_leaders">Skill IQ Leaders</string>
+    <string name="project_submission_title">Project Submission</string>
+    <string name="Toolbar_title">LEADERBOARD</string>
+    <string name="leaderboard_title_toolbar">LEADERBOARD</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="yes_button">Yes</string>
+</resources>
